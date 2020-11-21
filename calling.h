@@ -8,6 +8,7 @@ File for defining classes - attributes and methods
 #include <string.h>
 #define F_CPU 16000000
 
+///Main class for the driver that holds necessary attributes and methods 
 class LedStrip{
 	public:
 	void LedInit();
@@ -21,6 +22,8 @@ class LedStrip{
 	
 	void DisplayText(char text[]);
 	
+	///Three dimensional array that depicts every LED that can be used on the 8x8 board.
+	///This attribute is used by the "SetOneLed" method. 
 	char array[8][8][3] =   {{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
 							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
 							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
@@ -28,13 +31,16 @@ class LedStrip{
 							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
 							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
 							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}},
-							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}}};	
+							{{0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}}};
+	
+	///Function used to set brightness of LEDs used in functions like DisplayText or SetOneLed							
+	uint8_t global_brightness = 1;							
 	
 	private:
 	void LedTransmit(uint8_t data);
-	void ClearBoard();
 	void SendColor(char r, char g, char b);
 	void UpdateFrame(char row, char column, char r, char g, char b);
+	void ClearBoard();
 	
 	#define SPI_DDR DDRB
 	#define SS      PINB
